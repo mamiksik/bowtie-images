@@ -49,7 +49,7 @@ BTI lze konfigurovat, ale není to nuté. Vše funguje "out of the box".
 bowtieImages:
 	wwwDir: %wwwDir%
 	urlPrefix: images #prefix v url
-	dataPrefix: data #prefix pro www složku. Nesmý být stejné jako urlPrefix!
+	dataPrefix: data #prefix pro www složku. Nesmí být stejné jako urlPrefix!
 	cacheInvalidationTime: 7 days #nette cache expire time
 ```
  Cache používá `Cache:SLIDING`, takže pokaždém načtení konkrétního obrázku je expirace pro konkrétní obrázek resetována.
