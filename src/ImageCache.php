@@ -10,15 +10,8 @@ use Nette\Caching\Cache;
 use Nette\Caching\Storages\FileStorage;
 use Nette\Utils\Image;
 
-class ImageCache
+class ImageCache extends \Nette\Object
 {
-	protected $namespace;
-	protected $filename;
-	protected $type; //TODO
-	protected $width;
-	protected $height;
-	protected $flag = Image::FIT;
-
 	protected $wwwDir;
 	protected $prefix;
 	protected $cacheInvalidationTime;
@@ -26,40 +19,34 @@ class ImageCache
 	/** @var Cache */
 	protected $cache;
 
-	function __construct($cacheInvalidationTime, $filename, $flag, $height, $namespace, $prefix, $type, $width, $wwwDir)
+	function __construct($cacheInvalidationTime, $prefix, $wwwDir, $storage)
 	{
-		$this->cacheInvalidationTime = $cacheInvalidationTime;
-		$this->filename = $filename;
-		$this->flag = $flag;
-		$this->height = $height;
-		$this->namespace = $namespace;
 		$this->prefix = $prefix;
-		$this->type = $type;
-		$this->width = $width;
 		$this->wwwDir = $wwwDir;
-
-		$storage = new FileStorage($this->wwwDir . '/../temp/cache');
+		$this->cacheInvalidationTime = $cacheInvalidationTime;
 		$this->cache = new Cache($storage, 'BowtieImage.Cache');
 	}
 
-	public function saveTocache(Image $image)
+	public function saveTocache(Image $image, $namespace, $width, $height, $flag, $filename)
 	{
-		$this->cache->save($this->getCacheName(), $image->toString(), array(
+		$this->cache->save($this->getCacheName($namespace, $width, $height, $flag, $filename), $image->toString(), array(
 			 Cache::EXPIRE => $this->cacheInvalidationTime,
 			 Cache::SLIDING => TRUE,
+			 Cache::FILES => $this->wwwDir . '/' . $this->prefix . '/' . $namespace . '/' . $filename
 		));
 
 		return true;
 	}
 
-	public function getFromCache()
+	public function getFromCache($namespace, $width, $height, $flag, $filename)
 	{
-		return $image = $this->cache->load($this->getCacheName());
+		return $image = $this->cache->load($this->getCacheName($namespace, $width, $height, $flag, $filename));
 	}
 
 
-	public  function getCacheName()
+	public  function getCacheName($namespace, $width, $height, $flag = Image::FIT, $filename)
 	{
-		return $this->namespace . "." . $this->width . "." . $this->height . "." . $this->flag . "." . $this->filename;
+		return $namespace . "." . $width . "." . $height . "." . $flag . "." . $filename;
 	}
 }
+

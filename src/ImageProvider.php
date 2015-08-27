@@ -8,7 +8,7 @@ namespace BowtieImages;
 
 use Nette\Application\BadRequestException;
 use Nette\Caching\Cache;
-use Nette\Caching\Storages;
+use Nette\Caching\Storages\FileStorage;
 use Nette\Utils\Image;
 
 class ImageProvider
@@ -25,11 +25,16 @@ class ImageProvider
 	protected $prefix;
 	protected $cacheInvalidationTime;
 
+	protected $imageCache;
+
 	function __construct($wwwDir, $prefix, $cacheInvalidationTime)
 	{
 		$this->wwwDir = $wwwDir;
 		$this->prefix = $prefix;
 		$this->cacheInvalidationTime = $cacheInvalidationTime;
+
+		$storage = new FileStorage($this->wwwDir . '/../temp/cache');
+		$this->imageCache = new ImageCache($cacheInvalidationTime, $this->prefix, $this->wwwDir, $storage);
 	}
 
 
@@ -37,46 +42,31 @@ class ImageProvider
 	{
 		//Check if all necessary variables exist and assign to class variables
 		$this->assignVariables($param);
-		$imageCache = new ImageCache($this->cacheInvalidationTime,
-			                        $this->filename,
-			                        $this->flag,
-			                        $this->height,
-			                        $this->namespace,
-			                        $this->prefix,
-			                        $this->type,
-			                        $this->width,
-			                        $this->wwwDir);
-
 
 		//Contain origin path to image
 		$pathOrigin = $this->wwwDir . '/' . $this->prefix . '/' . $this->namespace . '/' . $this->filename;
 
 		//First check if exist in cache(it is more common to get resize then origin size)
-		if($image = $imageCache->getFromCache()) {
-			$image = Image::fromString($image, $this->type);
-			$image->send();
-			exit;
+		if($imageString = $this->imageCache->getFromCache($this->namespace, $this->width, $this->height, $this->flag, $this->filename)) {
+			$image = Image::fromString($imageString, $this->type);
 		//then look if height and width is null to provide origin
 		}elseif($this->height == null && $this->width == null){
 			$image = Image::fromFile($pathOrigin);
-			$image->send();
-			exit;
 		//try get image, resize and save to cache
 		}elseif(file_exists($pathOrigin)){
 			$image = Image::fromFile($pathOrigin);
 			$image = $this->resizeImage($image, $this->width, $this->height, $this->flag);
 
-			if(!$imageCache->saveTocache($image)){
+			if(!$this->imageCache->saveTocache($image, $this->namespace, $this->width, $this->height, $this->flag, $this->filename)){
 				throw new BowtieImageException('There is something wrong :(');
 			}
 
-			$image->send();
-			exit;
 		//else image not exist throw exception
 		}else{
 			throw new BadRequestException('Required image not found.');
 		}
 
+		return $image;
 	}
 
 	private  function assignVariables($param)
@@ -117,6 +107,7 @@ class ImageProvider
 						case 'stretch':
 							$this->flag = Image::STRETCH;
 							break;
+						//TODO: Exact require width and height
 						//TODO: Schould throw exception when flag is not recognized!
 					}
 					break;

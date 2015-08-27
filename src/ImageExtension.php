@@ -31,6 +31,7 @@ class ImageExtension extends CompilerExtension
 		$provider = $container->addDefinition($this->prefix('provider'))
 			 ->setClass('BowtieImages\ImageProvider', [$config['wwwDir'], $config['dataPrefix'], $config['cacheInvalidationTime']]);
 
+		//url mask
 		$routerMask = $config['urlPrefix'] . '/<namespace>[/<width>x[<height>]][/<flag>]/<filename><type .png|.gif|.jpg|.jpeg>';
 
 		$router = $container->addDefinition($this->prefix('router'))

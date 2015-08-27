@@ -21,7 +21,9 @@ class ImageRoute extends Route
 
 		$defaults['callback'] = function($presenter){
 			$parameters = $presenter->getRequest()->getParameters();
-			$this->imageProvider->provideImage($parameters);
+
+			$image = $this->imageProvider->provideImage($parameters);
+			$image->send();
 		};
 
 		parent::__construct($mask, $defaults);
