@@ -93,23 +93,11 @@ class ImageProvider
 		foreach ($param as $k => $v) {
 			switch($k){
 				case 'namespace':
-					$this->namespace = $v;
-					break;
-
 				case 'filename':
-					$this->filename = $v;
-					break;
-
 				case 'type':
-					$this->type = $v;
-					break;
-
 				case 'height':
-					$this->height = $v;
-					break;
-
 				case 'width':
-					$this->width = $v;
+					$this->$k = $v;
 					break;
 
 				case 'flag':
