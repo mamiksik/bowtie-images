@@ -18,7 +18,6 @@ class ImageRoute extends Route
 		$this->imageProvider = $imageProvider;
 
 		$defaults['presenter'] = 'Nette:Micro';
-		$defaults['callback'] = 'ImageRoute';
 
 		$defaults['callback'] = function($presenter){
 			$parameters = $presenter->getRequest()->getParameters();
