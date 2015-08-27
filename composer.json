@@ -23,7 +23,7 @@
         "nette/http": ">=2.3.0",
         "nette/utils": ">=2.3.0"
     },
-    "version": "1.2",
+    "version": "1.2.2",
     "minimum-stability": "dev",
     "autoload": {
         "classmap": ["src/"]

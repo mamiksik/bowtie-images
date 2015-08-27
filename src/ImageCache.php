@@ -7,7 +7,6 @@ namespace BowtieImages;
 
 
 use Nette\Caching\Cache;
-use Nette\Caching\Storages\FileStorage;
 use Nette\Utils\Image;
 
 class ImageCache extends \Nette\Object

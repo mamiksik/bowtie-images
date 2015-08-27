@@ -41,6 +41,8 @@ example.cz/images/WidthxHeight/flag/nameOfimage.type
 /<namespace>[/<width>x[<height>]][/<flag>]/<filename><type .png|.gif|.jpg|.jpeg>
 ```
 
+##Storage
+Je jednoduchý nástroj pro ukládání a mazání originálních obrázků
 
 ##Config
 BTI lze konfigurovat, ale není to nuté. Vše funguje "out of the box".
