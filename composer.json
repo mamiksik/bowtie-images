@@ -1,0 +1,32 @@
+{
+    "name": "mamiksik/bowtie-images",
+    "description": "Just-in-time images generator for nettefw",
+    "type": "library",
+    "keywords": [
+        "routing",
+        "images",
+        "jit",
+        "nette"
+    ],
+    "license": ["GNU GENERAL PUBLIC LICENSE"],
+    "authors": [
+        {
+            "name": "Martin Mikšík",
+            "homepage": "http://github.com/mamiksik"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "nette/application": ">=2.3.0",
+        "nette/caching": ">=2.3.0",
+        "nette/neon": ">=2.3.0",
+        "nette/di": ">=2.3.0",
+        "nette/http": ">=2.3.0",
+        "nette/utils": ">=2.3.0"
+    },
+    "version": "0.5",
+    "minimum-stability": "dev",
+    "autoload": {
+        "classmap": ["src/"]
+    }
+}
