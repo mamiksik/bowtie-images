@@ -3,7 +3,7 @@
 ## Installation
 1) Na instalaci použíjte [Composer](http://getcomposer.org/):
 ```sh
-$ composer require mamiksik/BowtieImages
+$ composer require mamiksik/bowtie-images @dev
 ```
 
 2) Registruje extension v config.neon:

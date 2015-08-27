@@ -5,10 +5,10 @@
     "keywords": [
         "routing",
         "images",
-        "jit",
+        "JIT",
         "nette"
     ],
-    "license": ["GNU GENERAL PUBLIC LICENSE"],
+    "license": ["BSD-3-Clause"],
     "authors": [
         {
             "name": "Martin Mikšík",
@@ -19,12 +19,11 @@
         "php": ">=5.4",
         "nette/application": ">=2.3.0",
         "nette/caching": ">=2.3.0",
-        "nette/neon": ">=2.3.0",
         "nette/di": ">=2.3.0",
         "nette/http": ">=2.3.0",
         "nette/utils": ">=2.3.0"
     },
-    "version": "0.5",
+    "version": "1.0",
     "minimum-stability": "dev",
     "autoload": {
         "classmap": ["src/"]
