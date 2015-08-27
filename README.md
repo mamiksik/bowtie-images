@@ -52,5 +52,13 @@ bowtieImages:
 	dataPrefix: data #prefix pro www složku. Nesmí být stejné jako urlPrefix!
 	cacheInvalidationTime: 7 days #nette cache expire time
 ```
- Cache používá `Cache:SLIDING`, takže pokaždém načtení konkrétního obrázku je expirace pro konkrétní obrázek resetována.
+ Cache používá `Cache:SLIDING`, takže pokaždém načtení konkrétního obrázku je expirace pro konkrétní obrázek resetována a navíc `Cache:FILES` což zapřičiní že po smazání originálu se smažou i ostatní verze obrázku.
 
+##Co je v plánu
+Testy, testy a texy! :)
+
+Pravidla pro velikosti generovaných obrázků
+
+Rozhraní pro ukládání, obměnu, či mazání originálních položek
+
+Podpora pro latte, s možnosti volby `LQIP`
