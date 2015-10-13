@@ -11,7 +11,7 @@ use Nette\Caching\Cache;
 use Nette\Caching\Storages\FileStorage;
 use Nette\Utils\Image;
 
-class ImageProvider
+class ImageProvider implements IImageProvider
 {
 	protected $namespace;
 	protected $filename;
