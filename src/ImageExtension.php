@@ -13,6 +13,7 @@ use Nette\Application;
 class ImageExtension extends CompilerExtension
 {
 	public $defaults = array(
+		 'tempDir' => '%tempDir%',
 		 'wwwDir' => '%wwwDir%',
 		 'urlPrefix' => 'images',
 		 'dataPrefix' => 'data',
@@ -29,7 +30,7 @@ class ImageExtension extends CompilerExtension
 		}
 
 		$provider = $container->addDefinition($this->prefix('provider'))
-			 ->setClass('BowtieImages\ImageProvider', [$config['wwwDir'], $config['dataPrefix'], $config['cacheInvalidationTime']]);
+			 ->setClass('BowtieImages\ImageProvider', [$config['tempDir'], $config['wwwDir'], $config['dataPrefix'], $config['cacheInvalidationTime']]);
 
 		$container->addDefinition($this->prefix('imageStorage'))
 			 ->setClass('BowtieImages\ImageStorage', [$config['dataPrefix'], $config['wwwDir']]);
