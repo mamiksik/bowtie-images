@@ -49,6 +49,7 @@ BTI lze konfigurovat, ale není to nuté. Vše funguje "out of the box".
 
 ```
 bowtieImages:
+	tempDir: %tempDir%
 	wwwDir: %wwwDir%
 	urlPrefix: images #prefix v url
 	dataPrefix: data #prefix pro www složku. Nesmí být stejné jako urlPrefix!

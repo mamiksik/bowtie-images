@@ -27,13 +27,13 @@ class ImageProvider implements IImageProvider
 
 	protected $imageCache;
 
-	function __construct($wwwDir, $prefix, $cacheInvalidationTime)
+	function __construct($tempDir, $wwwDir, $prefix, $cacheInvalidationTime)
 	{
 		$this->wwwDir = $wwwDir;
 		$this->prefix = $prefix;
 		$this->cacheInvalidationTime = $cacheInvalidationTime;
 
-		$storage = new FileStorage($this->wwwDir . '/../temp/cache');
+		$storage = new FileStorage($tempDir . '/cache');
 		$this->imageCache = new ImageCache($cacheInvalidationTime, $this->prefix, $this->wwwDir, $storage);
 	}
 
